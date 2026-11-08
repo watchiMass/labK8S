@@ -84,8 +84,50 @@ The CKA course environment also has two workers and the expected certificates/to
 From your host:
 
 ```bash
+# Optional: choose a different RDP password (default: vagrant)
+export CKA_DESKTOP_PASSWORD='choose-a-password'
 vagrant up
+```
+
+Connect to the control-plane desktop with an RDP client (for example Remmina):
+
+- Host: `192.168.56.10`
+- Port: `3389`
+- Username: `vagrant`
+- Password: the value of `CKA_DESKTOP_PASSWORD`, or `vagrant` if you did not set it
+
+The XFCE desktop includes a terminal, VSCodium, Google Chrome and Git, with the French
+AZERTY keyboard layout. Disconnect and reconnect after changing the layout. Open a terminal
+there to use `kubectl`; the cluster kubeconfig is already available to `vagrant`.
+The RDP service is on the lab's private network and is intended for local practice only.
+
+If RDP reaches the login screen but rejects the credentials, reset the VM account password
+over SSH (this does not reprovision or alter Kubernetes):
+
+```bash
 vagrant ssh cp1
+sudo passwd vagrant
+```
+
+Enter the new password twice, then reconnect over RDP as `vagrant` and select the `Xorg`
+session if prompted. Do not enter the example text `choose-a-password` literally; use the
+password you chose, or `vagrant` if you did not set one.
+
+For VMs that were already created before the desktop was added, apply the new control-plane
+size and install only the desktop provisioner. Do not run all provisioners on the existing
+control plane, since that would rerun `kubeadm init`:
+
+```bash
+vagrant halt cp1
+vagrant up cp1
+vagrant provision cp1 --provision-with desktop
+```
+
+If you change `CKA_DESKTOP_PASSWORD` later, run the desktop provisioner again to update it.
+
+Continue setup in the desktop terminal:
+
+```bash
 export KUBECONFIG="$HOME/.kube/config"
 sudo mkdir -p /opt/cka-practice
 sudo chown -R "$(id -u):$(id -g)" /opt/cka-practice
@@ -95,6 +137,15 @@ cd cka-practice-labs
 
 Workers are reached from the host with `vagrant ssh w1` / `vagrant ssh w2`. For B06, run
 the `openssl` commands on the worker and write the required report file on `cp1`.
+New VMs set Bash as the default login shell for `vagrant`, so SSH sessions support command
+history and standard Bash completion. To apply this change to existing VMs without rerunning
+Kubernetes setup, run the shell provisioner once on each VM:
+
+```bash
+vagrant provision cp1 --provision-with interactive-shell
+vagrant provision w1 --provision-with interactive-shell
+vagrant provision w2 --provision-with interactive-shell
+```
 
 ## Series overview
 

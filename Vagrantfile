@@ -5,11 +5,12 @@
 K8S_VERSION = "v1.36"                     # branche pkgs.k8s.io (v1.37 est la dernière sortie)
 CP_IP       = "192.168.56.10"
 JOIN_TOKEN  = "abcdef.0123456789abcdef"   # token fixe : OK pour un lab local uniquement
+DESKTOP_PASSWORD = ENV.fetch("CKA_DESKTOP_PASSWORD", "vagrant")
 
 NODES = [
-  { name: "cp1", ip: CP_IP,           cpus: 2, memory: 3072, role: "cp" },
-  { name: "w1",  ip: "192.168.56.11", cpus: 2, memory: 3072, role: "worker" },
-  { name: "w2",  ip: "192.168.56.12", cpus: 2, memory: 3072, role: "worker" },
+  { name: "cp1", ip: CP_IP,           cpus: 4, memory: 4096, role: "cp" },
+  { name: "w1",  ip: "192.168.56.11", cpus: 2, memory: 2064, role: "worker" },
+  { name: "w2",  ip: "192.168.56.12", cpus: 2, memory: 2064, role: "worker" },
 ]
 
 # --- Commun aux 3 nœuds : prérequis, containerd, kubeadm/kubelet/kubectl ---
@@ -93,6 +94,38 @@ WORKER = <<~'SHELL'
     --discovery-token-unsafe-skip-ca-verification
 SHELL
 
+# --- Bureau léger sur le control plane, accessible depuis l'hôte en RDP ---
+DESKTOP = <<~'SHELL'
+  set -euxo pipefail
+  export DEBIAN_FRONTEND=noninteractive
+
+  apt-get update
+  apt-get install -y xfce4 xfce4-goodies xfce4-terminal xrdp xorgxrdp dbus-x11 git curl gpg
+
+  curl -fsSL https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg \
+    | gpg --dearmor --yes -o /usr/share/keyrings/vscodium-archive-keyring.gpg
+  echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/vscodium-archive-keyring.gpg] https://download.vscodium.com/debs vscodium main" \
+    > /etc/apt/sources.list.d/vscodium.list
+  apt-get update
+  apt-get install -y codium
+
+  curl -fsSL https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
+    -o /tmp/google-chrome-stable.deb
+  apt-get install -y /tmp/google-chrome-stable.deb
+  rm -f /tmp/google-chrome-stable.deb
+
+  printf 'vagrant:%s\n' "${DESKTOP_PASSWORD}" | chpasswd
+  printf '%s\n' 'setxkbmap -layout fr' 'exec startxfce4' > /home/vagrant/.xsession
+  chown vagrant:vagrant /home/vagrant/.xsession
+  systemctl enable --now xrdp
+SHELL
+
+# --- Bash interactif pour les connexions SSH de l'utilisateur vagrant ---
+INTERACTIVE_SHELL = <<~'SHELL'
+  set -euxo pipefail
+  usermod --shell /bin/bash vagrant
+SHELL
+
 Vagrant.configure("2") do |config|
   config.vm.box = "cloud-image/ubuntu-24.04"
   config.vm.box_check_update = false
@@ -117,6 +150,11 @@ Vagrant.configure("2") do |config|
       node.vm.provision "common",  type: "shell", inline: COMMON, env: env
       node.vm.provision "kubeadm", type: "shell", env: env,
                         inline: (n[:role] == "cp" ? CONTROL_PLANE : WORKER)
+      node.vm.provision "interactive-shell", type: "shell", inline: INTERACTIVE_SHELL
+      if n[:role] == "cp"
+        node.vm.provision "desktop", type: "shell", inline: DESKTOP,
+                          env: { "DESKTOP_PASSWORD" => DESKTOP_PASSWORD }
+      end
     end
   end
 end
