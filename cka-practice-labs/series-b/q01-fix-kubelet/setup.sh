@@ -6,7 +6,7 @@ source "$SCRIPT_DIR/../../lib/common.sh"
 need_kubectl
 need_root_or_sudo
 need_cmd systemctl "This exercise expects a kubeadm/systemd node."
-QWORK="$CKA_WORKROOT/series-b/q01-fix-kubelet"
+QWORK="$SCRIPT_DIR"
 ensure_workdir "$QWORK"
 
 KCFG=/var/lib/kubelet/config.yaml

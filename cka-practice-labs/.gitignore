@@ -1,0 +1,15 @@
+/series-a/q01-contexts-csr/dev-anna.key
+/series-a/q01-contexts-csr/dev-anna.csr
+/series-a/q01-contexts-csr/dev-anna.crt
+/series-a/q01-contexts-csr/dev-anna.kubeconfig
+/series-a/q01-contexts-csr/ca.crt
+/series-b/q04-etcd-snapshot-restore/etcd-snapshot.db
+/series-b/q04-etcd-snapshot-restore/etcd-restore/
+/series-d/q15-etcd-isolated-restore/source-snapshot.db
+/series-d/q15-etcd-isolated-restore/etcd-restore/
+/series-d/q15-etcd-isolated-restore/etcd.pid
+/series-d/q15-etcd-isolated-restore/etcd.log
+/series-d/q15-etcd-isolated-restore/namespaces.txt
+/series-d/q15-etcd-isolated-restore/tools.txt
+/series-d/q16-bound-sa-token/token.txt
+/tools/

@@ -5,7 +5,7 @@ source "$SCRIPT_DIR/../../lib/common.sh"
 
 need_kubectl
 need_cmd helm "Install Helm 3 and re-run validation."
-QWORK="$CKA_WORKROOT/series-a/q13-helm-rollback"
+QWORK="$SCRIPT_DIR"
 info "Validating Helm release state..."
 
 for f in Chart.yaml values.yaml templates/deployment.yaml templates/service.yaml; do

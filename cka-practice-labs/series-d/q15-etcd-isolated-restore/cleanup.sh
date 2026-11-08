@@ -3,7 +3,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/../../lib/common.sh"
 
-QWORK="$CKA_WORKROOT/series-d/q15-etcd-isolated-restore"
+QWORK="$SCRIPT_DIR"
 need_root_or_sudo
 
 PID=$(head -n1 "$QWORK/etcd.pid" 2>/dev/null | tr -d '[:space:]' || true)

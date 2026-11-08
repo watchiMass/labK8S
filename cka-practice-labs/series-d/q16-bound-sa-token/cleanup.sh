@@ -3,7 +3,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/../../lib/common.sh"
 
-QWORK="$CKA_WORKROOT/series-d/q16-bound-sa-token"
+QWORK="$SCRIPT_DIR"
 if kubectl cluster-info >/dev/null 2>&1; then
   kubectl delete namespace d16-token --ignore-not-found >/dev/null 2>&1 || true
 fi

@@ -1,6 +1,6 @@
 # Kustomize: replace an external autoscaler with an HPA
 
-Kustomize config is at `/opt/cka-practice/series-a/q10-kustomize-hpa`.
+Kustomize config is in this question's directory.
 It has a `base/` and the overlays `overlays/staging/` and `overlays/prod/`,
 currently deployed to namespaces `a10-staging` and `a10-prod`.
 

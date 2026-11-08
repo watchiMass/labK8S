@@ -4,7 +4,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/../../lib/common.sh"
 
 need_kubectl
-QWORK="$CKA_WORKROOT/series-d/q10-native-sidecar"
+QWORK="$SCRIPT_DIR"
 ensure_workdir "$QWORK"
 
 if ! kubectl explain pod.spec.initContainers.restartPolicy >/dev/null 2>&1; then

@@ -3,7 +3,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/../../lib/common.sh"
 
-QWORK="$CKA_WORKROOT/series-d/q09-gateway-canary-filters"
+QWORK="$SCRIPT_DIR"
 if kubectl cluster-info >/dev/null 2>&1; then
   kubectl delete namespace d09-gw --ignore-not-found >/dev/null 2>&1 || true
 fi

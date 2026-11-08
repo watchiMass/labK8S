@@ -4,7 +4,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/../../lib/common.sh"
 
 need_kubectl
-QWORK="$CKA_WORKROOT/series-b/q07-manual-scheduling"
+QWORK="$SCRIPT_DIR"
 info "Validating scheduler restoration and manual scheduling..."
 
 WORKER=$(cat "$QWORK/node.txt" 2>/dev/null || true)

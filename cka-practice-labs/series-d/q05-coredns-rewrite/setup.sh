@@ -5,7 +5,7 @@ source "$SCRIPT_DIR/../../lib/common.sh"
 
 need_kubectl
 need_cmd python3 "python3 is used to patch the CoreDNS ConfigMap safely."
-QWORK="$CKA_WORKROOT/series-d/q05-coredns-rewrite"
+QWORK="$SCRIPT_DIR"
 ensure_workdir "$QWORK"
 
 kubectl create namespace d05-dns --dry-run=client -o yaml | kubectl apply -f - >/dev/null

@@ -1,6 +1,6 @@
 # StorageClass, dynamic provisioning and a backup Job
 
-Work in `/opt/cka-practice/series-c/q03-storageclass-job`.
+Work in this question's directory.
 
 1. Create a StorageClass named `local-backup`:
    - provisioner `rancher.io/local-path`

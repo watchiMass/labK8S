@@ -1,6 +1,6 @@
 # Contexts, CSR and kubeconfig
 
-All files belong in `/opt/cka-practice/series-a/q01-contexts-csr`.
+Work in this question's directory. The validator checks the generated files here.
 
 You currently use cluster-admin credentials. Developer **dev-anna** (group
 `dev-team`) needs her own credentials and limited access.

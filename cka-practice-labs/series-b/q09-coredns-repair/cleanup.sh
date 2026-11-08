@@ -3,7 +3,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/../../lib/common.sh"
 
-QWORK="$CKA_WORKROOT/series-b/q09-coredns-repair"
+QWORK="$SCRIPT_DIR"
 BACKUP="$QWORK/Corefile.orig"
 PATCH="$QWORK/coredns-patch.json"
 

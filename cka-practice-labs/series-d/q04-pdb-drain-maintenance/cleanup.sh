@@ -3,7 +3,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/../../lib/common.sh"
 
-QWORK="$CKA_WORKROOT/series-d/q04-pdb-drain-maintenance"
+QWORK="$SCRIPT_DIR"
 if kubectl cluster-info >/dev/null 2>&1; then
   WORKER=$(cat "$QWORK/node.txt" 2>/dev/null || true)
   if [[ -n "$WORKER" ]]; then

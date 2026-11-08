@@ -5,7 +5,7 @@ source "$SCRIPT_DIR/../../lib/common.sh"
 
 need_kubectl
 need_root_or_sudo
-QWORK="$CKA_WORKROOT/series-b/q01-fix-kubelet"
+QWORK="$SCRIPT_DIR"
 info "Validating kubelet, node readiness and workload..."
 
 state=$($SUDO systemctl is-active kubelet 2>/dev/null || true)

@@ -1,7 +1,7 @@
 # Kubelet client and server certificate details
 
 The worker node you must inspect is recorded in
-`/opt/cka-practice/series-b/q06-kubelet-cert-info/node.txt`.
+`./node.txt`.
 
 On that worker, find the `Issuer` and `Extended Key Usage` values of:
 
@@ -11,7 +11,7 @@ On that worker, find the `Issuer` and `Extended Key Usage` values of:
    kube-apiserver to kubelet
 
 Write the result on the **control-plane node** to
-`/opt/cka-practice/series-b/q06-kubelet-cert-info/certificate-info.txt` in
+`./certificate-info.txt` in
 exactly this shape:
 
 ```

@@ -4,7 +4,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/../../lib/common.sh"
 
 need_kubectl
-QWORK="$CKA_WORKROOT/series-d/q06-quota-priority-scopes"
+QWORK="$SCRIPT_DIR"
 ensure_workdir "$QWORK"
 
 kubectl delete namespace d06-quota --ignore-not-found >/dev/null 2>&1 || true

@@ -4,7 +4,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/../../lib/common.sh"
 
 need_kubectl
-QWORK="$CKA_WORKROOT/series-d/q04-pdb-drain-maintenance"
+QWORK="$SCRIPT_DIR"
 NS=d04-maint
 info "Validating PDB-aware maintenance and final state..."
 

@@ -1,10 +1,10 @@
 # Operator, CRDs, RBAC and Kustomize
 
-Kustomize config is at `/opt/cka-practice/series-c/q16-operator-kustomize`.
+Kustomize config is in this question's directory.
 It is already deployed to namespace `c16-operator` with:
 
 ```bash
-kubectl apply -k /opt/cka-practice/series-c/q16-operator-kustomize/overlays/prod
+kubectl apply -k ./overlays/prod
 ```
 
 The `operator` Deployment continuously lists the custom resources

@@ -4,7 +4,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/../../lib/common.sh"
 
 need_kubectl
-QWORK="$CKA_WORKROOT/series-d/q02-rbac-bind-delegation"
+QWORK="$SCRIPT_DIR"
 ensure_workdir "$QWORK"
 
 kubectl delete namespace d02-rbac --ignore-not-found >/dev/null 2>&1 || true

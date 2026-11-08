@@ -5,7 +5,7 @@ source "$SCRIPT_DIR/../../lib/common.sh"
 
 need_kubectl
 need_cmd helm "Install Helm 3 and re-run."
-QWORK="$CKA_WORKROOT/series-a/q13-helm-rollback"
+QWORK="$SCRIPT_DIR"
 ensure_workdir "$QWORK"
 
 kubectl create namespace a13-helm --dry-run=client -o yaml | kubectl apply -f - >/dev/null

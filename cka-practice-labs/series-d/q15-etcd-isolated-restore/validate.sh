@@ -5,11 +5,12 @@ source "$SCRIPT_DIR/../../lib/common.sh"
 
 need_kubectl
 need_root_or_sudo
-QWORK="$CKA_WORKROOT/series-d/q15-etcd-isolated-restore"
+QWORK="$SCRIPT_DIR"
 info "Validating isolated etcd restore..."
 ensure_etcd_tools
 
-if [[ -s "$QWORK/source-snapshot.db" ]]; then
+SOURCE_SNAPSHOT="$QWORK/source-snapshot.db"
+if [[ -s "$SOURCE_SNAPSHOT" ]]; then
   pass "source snapshot exists"
 else
   fail "source snapshot is missing; re-run setup.sh"

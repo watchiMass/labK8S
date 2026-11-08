@@ -1,6 +1,6 @@
 # Kustomize overlay transformations
 
-Kustomize config is at `/opt/cka-practice/series-a/q11-kustomize-overlay`, with
+Kustomize config is in this question's directory, with
 `base/`, `overlays/staging/` and `overlays/prod/`.
 
 Change **only the prod overlay** so that the rendered and deployed resources

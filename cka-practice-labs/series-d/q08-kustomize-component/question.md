@@ -1,7 +1,7 @@
 # Kustomize: component and merged ConfigMap generator
 
-Kustomize config is at `/opt/cka-practice/series-d/q08-kustomize-component`
-with `base/` and `overlays/prod/`. The namespace is `d08-kustomize`.
+Kustomize config is in this question's directory, with `base/` and
+`overlays/prod/`. The namespace is `d08-kustomize`.
 
 Do not edit the base resources. Implement everything through the overlay and a
 component:

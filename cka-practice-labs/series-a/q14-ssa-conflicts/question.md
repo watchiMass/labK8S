@@ -2,7 +2,7 @@
 
 Deployment `web` in namespace `a14-ssa` was created with server-side apply by
 the field manager `platform-team`. A newer manifest is provided at
-`/opt/cka-practice/series-a/q14-ssa-conflicts/update.yaml`.
+`./update.yaml`.
 
 Apply `update.yaml` with **server-side apply** using the field manager
 `app-team`.

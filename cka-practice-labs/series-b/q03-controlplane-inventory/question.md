@@ -13,7 +13,7 @@ Find out how each of these is started/installed on this node:
 Also find the name of the cluster DNS application and how it is started.
 
 Write your findings to
-`/opt/cka-practice/series-b/q03-controlplane-inventory/controlplane-components.txt`
+`./controlplane-components.txt`
 in exactly this structure:
 
 ```

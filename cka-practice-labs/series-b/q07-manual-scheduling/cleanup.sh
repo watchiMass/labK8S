@@ -3,7 +3,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/../../lib/common.sh"
 
-QWORK="$CKA_WORKROOT/series-b/q07-manual-scheduling"
+QWORK="$SCRIPT_DIR"
 BACKUP="$QWORK/kube-scheduler.yaml.orig"
 
 if [[ -f "$BACKUP" ]]; then

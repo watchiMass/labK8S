@@ -4,7 +4,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/../../lib/common.sh"
 
 need_kubectl
-QWORK="$CKA_WORKROOT/series-c/q16-operator-kustomize"
+QWORK="$SCRIPT_DIR"
 NS=c16-operator
 SA="system:serviceaccount:c16-operator:operator"
 info "Validating operator RBAC, base changes, Student and logs..."

@@ -1,7 +1,7 @@
 # Pending Pod: taint without toleration
 
 The worker node is recorded in
-`/opt/cka-practice/series-b/q12-taint-toleration/node.txt`.
+`./node.txt`.
 
 Deployment `gpu-worker` in namespace `b12-pending` has a Pod stuck Pending.
 

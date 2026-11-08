@@ -4,7 +4,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/../../lib/common.sh"
 
 need_kubectl
-QWORK="$CKA_WORKROOT/series-d/q05-coredns-rewrite"
+QWORK="$SCRIPT_DIR"
 info "Validating CoreDNS rewrite and DNS resolution..."
 
 DNS_DEPLOY=$(cat "$QWORK/dns-deploy.txt" 2>/dev/null || true)

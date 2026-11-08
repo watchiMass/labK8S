@@ -4,7 +4,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/../../lib/common.sh"
 
 need_kubectl
-QWORK="$CKA_WORKROOT/series-a/q01-contexts-csr"
+QWORK="$SCRIPT_DIR"
 ensure_workdir "$QWORK"
 
 kubectl delete csr dev-anna --ignore-not-found >/dev/null 2>&1 || true

@@ -4,7 +4,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/../../lib/common.sh"
 
 need_kubectl
-QWORK="$CKA_WORKROOT/series-c/q15-kubectl-sorting"
+QWORK="$SCRIPT_DIR"
 ensure_workdir "$QWORK"
 
 rm -f "$QWORK/find_pods.sh" "$QWORK/find_pods_uid.sh"

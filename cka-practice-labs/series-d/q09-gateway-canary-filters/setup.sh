@@ -5,7 +5,7 @@ source "$SCRIPT_DIR/../../lib/common.sh"
 
 need_kubectl
 ensure_gateway_api
-QWORK="$CKA_WORKROOT/series-d/q09-gateway-canary-filters"
+QWORK="$SCRIPT_DIR"
 ensure_workdir "$QWORK"
 
 kubectl create namespace d09-gw --dry-run=client -o yaml | kubectl apply -f - >/dev/null

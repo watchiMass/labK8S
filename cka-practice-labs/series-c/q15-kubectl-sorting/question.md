@@ -1,6 +1,6 @@
 # kubectl sorting scripts
 
-Create two bash scripts in `/opt/cka-practice/series-c/q15-kubectl-sorting`.
+Create two bash scripts in this question's directory.
 Each script must print the standard `kubectl get pods` table (headers are
 fine), and both must run successfully with `bash <script>`.
 

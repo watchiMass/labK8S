@@ -4,7 +4,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/../../lib/common.sh"
 
 need_kubectl
-QWORK="$CKA_WORKROOT/series-d/q11-selector-migration"
+QWORK="$SCRIPT_DIR"
 ensure_workdir "$QWORK"
 
 kubectl create namespace d11-migrate --dry-run=client -o yaml | kubectl apply -f - >/dev/null

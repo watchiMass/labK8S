@@ -4,7 +4,6 @@
 # Do not execute it directly.
 
 CKA_REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-CKA_WORKROOT="/opt/cka-practice"
 
 # shellcheck disable=SC2034
 if [[ -t 1 ]]; then
@@ -72,9 +71,9 @@ check_contains() {
 ensure_workdir() {
   local dir="$1"
   if ! mkdir -p "$dir" 2>/dev/null; then
-    die "Cannot create $dir. Run: sudo mkdir -p $CKA_WORKROOT && sudo chown -R $(id -u):$(id -g) $CKA_WORKROOT"
+    die "Cannot create $dir."
   fi
-  [[ -w "$dir" ]] || die "Directory $dir is not writable by $(id -un). Run: sudo chown -R $(id -u):$(id -g) $CKA_WORKROOT"
+  [[ -w "$dir" ]] || die "Directory $dir is not writable by $(id -un)."
 }
 
 need_kubectl() {
@@ -144,7 +143,7 @@ cluster_domain() {
   printf '%s\n' "$domain"
 }
 
-# Downloads etcd/etcdctl/etcdutl into $CKA_WORKROOT/tools when they are not on PATH.
+# Downloads etcd/etcdctl/etcdutl into the repository's tools directory when needed.
 # Sets ETCD, ETCDCTL and ETCDUTL.
 ensure_etcd_tools() {
   ETCD="$(command -v etcd 2>/dev/null || true)"
@@ -163,7 +162,7 @@ ensure_etcd_tools() {
     *) die "Unsupported CPU architecture '$arch' for the etcd tools download." ;;
   esac
 
-  tool_dir="$CKA_WORKROOT/tools/etcd-$version"
+  tool_dir="$CKA_REPO_ROOT/tools/etcd-$version"
   if [[ ! -x "$tool_dir/etcd" || ! -x "$tool_dir/etcdctl" || ! -x "$tool_dir/etcdutl" ]]; then
     mkdir -p "$tool_dir" || die "Cannot create $tool_dir"
     tmp="$(mktemp -d)"

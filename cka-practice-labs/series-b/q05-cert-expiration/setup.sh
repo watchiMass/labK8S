@@ -6,7 +6,7 @@ source "$SCRIPT_DIR/../../lib/common.sh"
 need_kubectl
 need_root_or_sudo
 need_cmd openssl "Install openssl and re-run."
-QWORK="$CKA_WORKROOT/series-b/q05-cert-expiration"
+QWORK="$SCRIPT_DIR"
 ensure_workdir "$QWORK"
 
 $SUDO test -s /etc/kubernetes/pki/apiserver.crt \

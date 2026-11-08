@@ -4,7 +4,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/../../lib/common.sh"
 
 need_kubectl
-QWORK="$CKA_WORKROOT/series-c/q14-ephemeral-debug"
+QWORK="$SCRIPT_DIR"
 NS=c14-debug
 info "Validating ephemeral debug container..."
 

@@ -1,7 +1,7 @@
 # Node maintenance: drain and uncordon
 
 The worker node to maintain is recorded in
-`/opt/cka-practice/series-b/q14-drain-node/node.txt`.
+`./node.txt`.
 Deployment `web` in namespace `b14-drain` has 2 replicas spread across the
 workers.
 

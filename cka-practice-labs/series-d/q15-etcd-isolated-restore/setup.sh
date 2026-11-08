@@ -5,7 +5,7 @@ source "$SCRIPT_DIR/../../lib/common.sh"
 
 need_kubectl
 need_root_or_sudo
-QWORK="$CKA_WORKROOT/series-d/q15-etcd-isolated-restore"
+QWORK="$SCRIPT_DIR"
 ensure_workdir "$QWORK"
 ensure_etcd_tools
 

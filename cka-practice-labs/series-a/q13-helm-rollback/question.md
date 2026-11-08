@@ -1,6 +1,6 @@
 # Helm: chart, install, upgrade, rollback
 
-Work in `/opt/cka-practice/series-a/q13-helm-rollback`.
+Work in this question's directory.
 
 1. Create a Helm chart at `webchart/` with:
    - `Chart.yaml`

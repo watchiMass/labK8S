@@ -5,7 +5,7 @@ source "$SCRIPT_DIR/../../lib/common.sh"
 
 need_kubectl
 need_cmd python3 "Install python3 (needed to patch the CoreDNS ConfigMap)."
-QWORK="$CKA_WORKROOT/series-b/q09-coredns-repair"
+QWORK="$SCRIPT_DIR"
 ensure_workdir "$QWORK"
 
 DNS_DEPLOY=$(kubectl -n kube-system get deployment -l k8s-app=kube-dns \

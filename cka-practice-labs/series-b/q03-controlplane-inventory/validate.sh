@@ -4,7 +4,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/../../lib/common.sh"
 
 need_kubectl
-QWORK="$CKA_WORKROOT/series-b/q03-controlplane-inventory"
+QWORK="$SCRIPT_DIR"
 FILE="$QWORK/controlplane-components.txt"
 info "Validating control-plane inventory..."
 

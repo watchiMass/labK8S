@@ -4,7 +4,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/../../lib/common.sh"
 
 need_kubectl
-QWORK="$CKA_WORKROOT/series-a/q10-kustomize-hpa"
+QWORK="$SCRIPT_DIR"
 info "Validating Kustomize render and live HPA objects..."
 
 base_render=$(kubectl kustomize "$QWORK/base" 2>/dev/null || true)

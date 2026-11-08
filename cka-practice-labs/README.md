@@ -50,19 +50,9 @@ bash cleanup.sh      # removes what setup.sh created
 
 ### Work directory
 
-Every question writes its files to an absolute path mirroring the repo:
-
-```
-/opt/cka-practice/series-a/q01-contexts-csr/
-/opt/cka-practice/series-b/q04-etcd-snapshot-restore/
-```
-
-`setup.sh` creates it. If you run as a non-root user, once per machine:
-
-```bash
-sudo mkdir -p /opt/cka-practice
-sudo chown -R "$(id -u):$(id -g)" /opt/cka-practice
-```
+Each question uses its own directory in the cloned repository for setup files,
+learner-created files, and validation. Change into the question's directory, run
+`setup.sh`, create your answer files there, then run `validate.sh` and `cleanup.sh`.
 
 Series B questions require `sudo` for node-level changes; the scripts use it where needed
 and restore original files in `cleanup.sh`. Series D also touches node state in D05/D14/D15.
@@ -72,7 +62,7 @@ CoreDNS, taints or a temporary etcd process may be left behind.
 ## Using this on Killercoda
 
 Open a Killercoda Kubernetes terminal (the CKA course environment is ideal), clone this
-repository and run the questions. You are root there, so `/opt/cka-practice` just works.
+repository and run the questions from their directories.
 The CKA course environment also has two workers and the expected certificates/tools.
 
 > The free single-node Killercoda playground does not have the kubeadm control-plane file
@@ -129,10 +119,9 @@ Continue setup in the desktop terminal:
 
 ```bash
 export KUBECONFIG="$HOME/.kube/config"
-sudo mkdir -p /opt/cka-practice
-sudo chown -R "$(id -u):$(id -g)" /opt/cka-practice
 git clone <your-fork-url> cka-practice-labs
 cd cka-practice-labs
+cd series-a/q01-contexts-csr
 ```
 
 Workers are reached from the host with `vagrant ssh w1` / `vagrant ssh w2`. For B06, run

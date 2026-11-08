@@ -4,7 +4,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/../../lib/common.sh"
 
 need_kubectl
-QWORK="$CKA_WORKROOT/series-d/q16-bound-sa-token"
+QWORK="$SCRIPT_DIR"
 NS=d16-token
 info "Validating bound ServiceAccount token lifecycle..."
 
@@ -52,6 +52,6 @@ else
 fi
 
 check_eq "bound-reader can still list Pods with its normal identity" \
-  "$(kubectl auth can-i list pods -n "$NS" --as=system:serviceaccount:d16-token:bound-reader" 2>/dev/null || true)" "yes"
+  "$(kubectl auth can-i list pods -n "$NS" --as="system:serviceaccount:d16-token:bound-reader" 2>/dev/null || true)" "yes"
 
 summary

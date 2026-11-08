@@ -4,7 +4,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/../../lib/common.sh"
 
 need_kubectl
-QWORK="$CKA_WORKROOT/series-c/q15-kubectl-sorting"
+QWORK="$SCRIPT_DIR"
 info "Validating sorting scripts and their output order..."
 
 check_script() { # file sort-field expected-sort-field

@@ -4,7 +4,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/../../lib/common.sh"
 
 need_kubectl
-QWORK="$CKA_WORKROOT/series-a/q11-kustomize-overlay"
+QWORK="$SCRIPT_DIR"
 info "Validating renders and the live prod overlay..."
 
 base_render=$(kubectl kustomize "$QWORK/base" 2>/dev/null || true)

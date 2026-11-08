@@ -4,9 +4,9 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/../../lib/common.sh"
 
 need_kubectl
-QWORK="$CKA_WORKROOT/series-a/q01-contexts-csr"
+QWORK="$SCRIPT_DIR"
 KC="$QWORK/dev-anna.kubeconfig"
-info "Validating client certificate, kubeconfig and RBAC..."
+info "Validating client certificate, kubeconfig and RBAC in $QWORK..."
 
 for f in dev-anna.key dev-anna.csr dev-anna.crt dev-anna.kubeconfig; do
   if [[ -s "$QWORK/$f" ]]; then

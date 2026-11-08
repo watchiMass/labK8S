@@ -4,7 +4,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/../../lib/common.sh"
 
 need_kubectl
-QWORK="$CKA_WORKROOT/series-d/q14-node-debug"
+QWORK="$SCRIPT_DIR"
 REPORT="$QWORK/node-report.txt"
 info "Validating node debug report..."
 

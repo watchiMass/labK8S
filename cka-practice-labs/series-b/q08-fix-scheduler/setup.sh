@@ -5,7 +5,7 @@ source "$SCRIPT_DIR/../../lib/common.sh"
 
 need_kubectl
 need_root_or_sudo
-QWORK="$CKA_WORKROOT/series-b/q08-fix-scheduler"
+QWORK="$SCRIPT_DIR"
 ensure_workdir "$QWORK"
 
 MANIFEST=/etc/kubernetes/manifests/kube-scheduler.yaml

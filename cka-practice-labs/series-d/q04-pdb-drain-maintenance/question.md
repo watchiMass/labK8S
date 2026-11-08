@@ -1,7 +1,7 @@
 # PDB-aware node maintenance
 
 The worker to maintain is in
-`/opt/cka-practice/series-d/q04-pdb-drain-maintenance/node.txt`.
+`./node.txt`.
 Deployment `web` (3 replicas) and PodDisruptionBudget `web-pdb`
 (`minAvailable: 3`) run in namespace `d04-maint`.
 

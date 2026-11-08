@@ -4,7 +4,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/../../lib/common.sh"
 
 need_kubectl
-QWORK="$CKA_WORKROOT/series-d/q08-kustomize-component"
+QWORK="$SCRIPT_DIR"
 NS=d08-kustomize
 info "Validating Kustomize component, merged generator and live state..."
 

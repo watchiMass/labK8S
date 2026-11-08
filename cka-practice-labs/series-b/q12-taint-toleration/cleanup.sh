@@ -3,7 +3,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/../../lib/common.sh"
 
-QWORK="$CKA_WORKROOT/series-b/q12-taint-toleration"
+QWORK="$SCRIPT_DIR"
 if kubectl cluster-info >/dev/null 2>&1; then
   WORKER=$(cat "$QWORK/node.txt" 2>/dev/null || true)
   if [[ -f "$QWORK/taint-added" && -n "$WORKER" ]]; then

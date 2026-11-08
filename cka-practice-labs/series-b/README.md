@@ -3,7 +3,7 @@
 16 questions. **These modify the control plane.** Run them on your disposable kubeadm lab
 (Vagrant `cp1`, a Killercoda CKA environment, etc.), not on anything you care about.
 
-The scripts use `sudo` when needed and save backups under `/opt/cka-practice/...`.
+The scripts use `sudo` when needed and save backups alongside the question files.
 `cleanup.sh` restores kubelet, scheduler and CoreDNS state. Run it even if you failed the
 question.
 
@@ -33,4 +33,4 @@ question.
 - At least two worker nodes for B14.
 - B06 needs a way to run commands on a worker (SSH from the control plane or
   `vagrant ssh w1` from the host). The report file must end up on the control plane.
-- B04 downloads `etcdctl`/`etcdutl` to `/opt/cka-practice/tools` if they are missing.
+- B04 downloads `etcdctl`/`etcdutl` to the repository's `tools/` directory if they are missing.
