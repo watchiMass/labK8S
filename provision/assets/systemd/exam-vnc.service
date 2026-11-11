@@ -1,0 +1,12 @@
+[Unit]
+Description=CKA exam x11vnc on :1
+After=exam-xvfb.service
+Requires=exam-xvfb.service
+
+[Service]
+ExecStart=/usr/bin/x11vnc -display :1 -forever -shared -rfbauth /etc/x11vnc.pass -rfbport 5901 -localhost -noxdamage -repeat
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target

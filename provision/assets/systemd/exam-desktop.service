@@ -1,0 +1,23 @@
+[Unit]
+Description=CKA exam XFCE desktop on :1
+After=exam-xvfb.service
+Requires=exam-xvfb.service
+
+[Service]
+User=candidate
+Group=candidate
+Environment=DISPLAY=:1
+Environment=HOME=/home/candidate
+Environment=USER=candidate
+Environment=LOGNAME=candidate
+Environment=XDG_RUNTIME_DIR=/run/cka-desktop
+Environment=XDG_SESSION_TYPE=x11
+ExecStartPre=+/bin/mkdir -p /run/cka-desktop
+ExecStartPre=+/bin/chown candidate:candidate /run/cka-desktop
+ExecStartPre=+/bin/chmod 700 /run/cka-desktop
+ExecStart=/usr/bin/dbus-run-session -- /usr/bin/startxfce4
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target

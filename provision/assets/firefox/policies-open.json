@@ -1,0 +1,23 @@
+{
+  "policies": {
+    "Homepage": {
+      "URL": "https://kubernetes.io/docs/home/",
+      "StartPage": "homepage"
+    },
+    "DisableTelemetry": true,
+    "DisableFirefoxStudies": true,
+    "DisablePocket": true,
+    "DisableFirefoxAccounts": true,
+    "DontCheckDefaultBrowser": true,
+    "OverrideFirstRunPage": "",
+    "OverridePostUpdatePage": "",
+    "Bookmarks": [
+      {
+        "Title": "Kubernetes Docs",
+        "URL": "https://kubernetes.io/docs/home/",
+        "Placement": "toolbar",
+        "Folder": "Kubernetes"
+      }
+    ]
+  }
+}

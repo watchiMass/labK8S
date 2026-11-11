@@ -1,1 +1,3 @@
 .vagrant
+provision/.lab_key
+provision/.lab_key.pub

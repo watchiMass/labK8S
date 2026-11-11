@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CKA Exam</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="brand">CKA</div>
+      <div class="topbar-center">Certified Kubernetes Administrator — practice environment</div>
+      <div class="topbar-actions">
+        <button id="novnc-fallback" class="btn btn-light" type="button">noVNC</button>
+        <button id="start-timer" class="btn btn-light" type="button">Start exam</button>
+        <button id="end-exam" class="btn btn-primary" type="button">End Exam</button>
+      </div>
+    </header>
+
+    <div class="timer-bar" id="timer-bar">
+      <div class="timer-fill" id="timer-fill"></div>
+      <span class="timer-label" id="timer-label">Time remaining: 120 minutes</span>
+    </div>
+
+    <main class="console" id="console">
+      <aside class="question-panel" id="question-panel">
+        <div class="question-toolbar">
+          <button id="prev-task" class="icon-btn" type="button" title="Previous task">←</button>
+          <select id="task-select" aria-label="Task"></select>
+          <button id="next-task" class="icon-btn" type="button" title="Next task">→</button>
+        </div>
+        <div class="series-row">
+          <select id="series-select" aria-label="Series"></select>
+        </div>
+        <div class="question-scroll" id="question-scroll">
+          <div id="question-content" class="question-content">
+            <p class="muted">Loading…</p>
+          </div>
+          <details class="lab-helper" id="lab-helper">
+            <summary>Lab helper (local)</summary>
+            <div id="lab-helper-body"></div>
+          </details>
+        </div>
+        <div class="question-actions">
+          <button id="flag-task" class="btn btn-outline" type="button">⚑ Flag this to return later</button>
+          <button id="copy-task" class="btn btn-outline" type="button">Copy task</button>
+          <button id="satisfied" class="btn btn-outline" type="button">I am satisfied, next →</button>
+        </div>
+      </aside>
+
+      <div class="splitter" id="splitter" role="separator" aria-orientation="vertical"></div>
+
+      <section class="desktop-panel">
+        <div class="tabs" role="tablist">
+          <button class="tab" data-tab="readme" role="tab" type="button">ReadMe</button>
+          <button class="tab active" data-tab="desktop" role="tab" type="button">Remote Desktop</button>
+        </div>
+        <div class="tab-content" id="tab-readme" role="tabpanel" hidden>
+          <div class="readme">
+            <h2>ReadMe</h2>
+            <p><strong>This is a local training recreation of the CKA ExamUI.</strong>
+              The remote desktop is an XFCE Linux machine with a terminal, Firefox,
+              VSCodium and a virtual keyboard.</p>
+
+            <h3>Environment</h3>
+            <ul>
+              <li>The terminal runs on the base node. The prompt should read
+                <code>candidate@base:~$</code>.</li>
+              <li>Use <code>ssh node01</code> and <code>ssh node02</code> for worker tasks.</li>
+              <li>The lab repository is at <code>~/cka-practice-labs</code>.</li>
+            </ul>
+
+            <h3>Keyboard</h3>
+            <p>The desktop starts in French AZERTY. The real exam uses US QWERTY.
+              Switch with the keyboard icon in the top panel or
+              <code>cka-keyboard us</code>. Use <code>cka-keyboard fr</code> to switch back.</p>
+
+            <h3>Copy and paste</h3>
+            <p>Select a command or use a “Copy to desktop” button, then paste in the
+              remote terminal with <code>Ctrl+Shift+V</code>. Inside the terminal,
+              <code>Ctrl+Shift+C</code> copies.</p>
+
+            <h3>Docs</h3>
+            <p>Firefox is restricted to <code>kubernetes.io</code> by default, as in the exam.
+              Links in a task open in the remote Firefox. To allow other sites, run
+              <code>sudo cka-firefox-mode open</code> in the terminal.</p>
+
+            <h3>Timer</h3>
+            <p>The timer is 2 hours. It keeps running if you switch tabs or reload the
+              page. Use “Start exam” to start or reset it.</p>
+
+            <h3>Local lab workflow</h3>
+            <p>Each task directory contains <code>setup.sh</code>, <code>question.md</code>,
+              <code>validate.sh</code> and <code>cleanup.sh</code>. Open the “Lab helper”
+              in the question panel to copy the commands.</p>
+          </div>
+        </div>
+        <div class="tab-content active" id="tab-desktop" role="tabpanel">
+          <iframe id="desktop-frame" src="/viewer.html" title="Remote Desktop"></iframe>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+  <script src="/app.js"></script>
+</body>
+</html>

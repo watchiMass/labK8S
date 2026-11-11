@@ -1,0 +1,11 @@
+[Unit]
+Description=CKA exam Xvfb display :1
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/Xvfb :1 -screen 0 1920x1080x24 -ac -nolisten tcp
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target

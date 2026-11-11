@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=VSCodium
+Comment=Code editor
+Exec=cka-codium
+Icon=vscodium
+Terminal=false
+Categories=Development;TextEditor;

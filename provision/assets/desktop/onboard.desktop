@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Keyboard
+Comment=Virtual keyboard
+Exec=onboard
+Icon=onboard
+Terminal=false
+Categories=Utility;Accessibility;

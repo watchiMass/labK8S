@@ -1,0 +1,12 @@
+[Unit]
+Description=CKA exam noVNC websocket on :6080
+After=exam-vnc.service
+Requires=exam-vnc.service
+
+[Service]
+ExecStart=/usr/bin/websockify --web=/usr/share/novnc 0.0.0.0:6080 127.0.0.1:5901
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=CKA Theme
+Comment=Apply the CKA exam desktop theme
+Exec=/usr/local/bin/cka-theme.sh
+Terminal=false
+Hidden=false
+NoDisplay=true
+X-GNOME-Autostart-enabled=true

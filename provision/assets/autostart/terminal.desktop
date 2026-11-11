@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Terminal
+Comment=Open the exam terminal
+Exec=xfce4-terminal --geometry=120x35+120+80
+Icon=utilities-terminal
+Terminal=false
+Hidden=false
+NoDisplay=true
+X-GNOME-Autostart-enabled=true

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Remote Desktop</title>
+</head>
+<body>
+  <p>Loading the remote desktop…</p>
+  <script>
+    /* Redirige vers l'interface noVNC officielle, servie en same-origin par
+       l'ExamUI (les fichiers viennent de /vendor/novnc/). Les paramètres
+       host/port/path/password sont ceux du WebSocket websockify de base. */
+    (async () => {
+      try {
+        const config = await (await fetch("/api/config")).json();
+        const params = new URLSearchParams({
+          autoconnect: "1",
+          host: window.location.hostname,
+          port: String(config.wsPort),
+          path: "websockify",
+          password: config.vncPassword,
+          resize: "scale",
+          reconnect: "1",
+        });
+        window.location.replace("/vendor/novnc/vnc.html?" + params.toString());
+      } catch {
+        document.body.textContent = "Cannot load the desktop configuration.";
+      }
+    })();
+  </script>
+</body>
+</html>

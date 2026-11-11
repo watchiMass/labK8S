@@ -71,70 +71,34 @@ The CKA course environment also has two workers and the expected certificates/to
 
 ## Using this on the included Vagrant lab
 
-From your host:
+The included Vagrant environment recreates the CKA exam desktop (XFCE + terminal + Firefox
++ VSCodium) behind a local ExamUI. See the repository [README](../README.md) for the full
+setup, access URLs, credentials, keyboard, Firefox restrictions and troubleshooting.
+
+Quick start from the repository root:
 
 ```bash
-# Optional: choose a different RDP password (default: vagrant)
-export CKA_DESKTOP_PASSWORD='choose-a-password'
 vagrant up
+# Then open http://192.168.56.10:8080/ in your host browser.
 ```
 
-Connect to the control-plane desktop with an RDP client (for example Remmina):
-
-- Host: `192.168.56.10`
-- Port: `3389`
-- Username: `vagrant`
-- Password: the value of `CKA_DESKTOP_PASSWORD`, or `vagrant` if you did not set it
-
-The XFCE desktop includes a terminal, VSCodium, Google Chrome and Git, with the French
-AZERTY keyboard layout. Disconnect and reconnect after changing the layout. Open a terminal
-there to use `kubectl`; the cluster kubeconfig is already available to `vagrant`.
-The RDP service is on the lab's private network and is intended for local practice only.
-
-If RDP reaches the login screen but rejects the credentials, reset the VM account password
-over SSH (this does not reprovision or alter Kubernetes):
+- The desktop runs on `base` (Vagrant machine `cp1`) as user `candidate`
+  (`candidate` / `candidate`); the terminal prompt is `candidate@base:~$`.
+- The labs are already available at `~/cka-practice-labs` inside the desktop.
+- From the desktop terminal: `ssh node01` / `ssh node02` for worker tasks.
+- `vagrant ssh cp1` remains available for host-level administration.
+- The keyboard starts in FR AZERTY; use the panel keyboard indicator or
+  `cka-keyboard us` to practise the real exam's US layout.
+- Re-provision safely without rerunning `kubeadm init`:
 
 ```bash
-vagrant ssh cp1
-sudo passwd vagrant
+vagrant provision cp1 --provision-with desktop-assets,desktop,desktop-config,exam-console-files,exam-console,labs-files,labs
 ```
 
-Enter the new password twice, then reconnect over RDP as `vagrant` and select the `Xorg`
-session if prompted. Do not enter the example text `choose-a-password` literally; use the
-password you chose, or `vagrant` if you did not set one.
+- To rebuild everything (destructive): `vagrant destroy -f && vagrant up`.
 
-For VMs that were already created before the desktop was added, apply the new control-plane
-size and install only the desktop provisioner. Do not run all provisioners on the existing
-control plane, since that would rerun `kubeadm init`:
-
-```bash
-vagrant halt cp1
-vagrant up cp1
-vagrant provision cp1 --provision-with desktop
-```
-
-If you change `CKA_DESKTOP_PASSWORD` later, run the desktop provisioner again to update it.
-
-Continue setup in the desktop terminal:
-
-```bash
-export KUBECONFIG="$HOME/.kube/config"
-git clone <your-fork-url> cka-practice-labs
-cd cka-practice-labs
-cd series-a/q01-contexts-csr
-```
-
-Workers are reached from the host with `vagrant ssh w1` / `vagrant ssh w2`. For B06, run
-the `openssl` commands on the worker and write the required report file on `cp1`.
-New VMs set Bash as the default login shell for `vagrant`, so SSH sessions support command
-history and standard Bash completion. To apply this change to existing VMs without rerunning
-Kubernetes setup, run the shell provisioner once on each VM:
-
-```bash
-vagrant provision cp1 --provision-with interactive-shell
-vagrant provision w1 --provision-with interactive-shell
-vagrant provision w2 --provision-with interactive-shell
-```
+For B06, run the `openssl` commands on the worker (`ssh node01`) and write the report file
+in the question directory on `base`.
 
 ## Series overview
 
