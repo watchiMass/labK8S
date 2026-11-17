@@ -85,48 +85,51 @@
     return q ? `${state.series}/${q.slug}` : "";
   }
 
-  function isDocsUrl(url) {
+  function isHttpUrl(url) {
     try {
-      const host = new URL(url).hostname.toLowerCase();
-      return host === "kubernetes.io" || host.endsWith(".kubernetes.io");
+      return ["http:", "https:"].includes(new URL(url).protocol);
     } catch {
       return false;
     }
   }
 
-  function getRemoteRfb() {
+  function getConnectedNoVncFrame() {
     const frameWindow = els.desktopFrame && els.desktopFrame.contentWindow;
-    if (!frameWindow) {
+    if (!frameWindow || !frameWindow.document) {
       return null;
     }
-    // L'interface noVNC officielle expose UI.rfb ; l'ancien viewer custom rfb.
-    return (frameWindow.UI && frameWindow.UI.rfb) || frameWindow.rfb || null;
+    const frameDocument = frameWindow.document;
+    if (!frameDocument.documentElement.classList.contains("noVNC_connected")) {
+      return null;
+    }
+    return { frameWindow, frameDocument };
   }
 
   function sendToDesktop(text) {
-    const rfb = getRemoteRfb();
-    if (!rfb || typeof rfb.clipboardPasteFrom !== "function") {
+    const frame = getConnectedNoVncFrame();
+    if (!frame) {
       toast("The remote desktop is not connected yet.");
       return;
     }
-    try {
-      rfb.clipboardPasteFrom(text);
-    } catch {
-      toast("The remote desktop is not connected yet.");
+    const clipboard = frame.frameDocument.getElementById("noVNC_clipboard_text");
+    if (!clipboard) {
+      toast("The remote clipboard is still loading.");
       return;
     }
+    clipboard.value = text;
+    clipboard.dispatchEvent(new frame.frameWindow.Event("change", { bubbles: true }));
     toast("Copied to the remote clipboard — press Ctrl+Shift+V in the terminal.");
   }
 
-  async function openDocs(url) {
+  async function openUrl(url) {
     try {
-      const res = await fetch("/api/open-docs", {
+      const res = await fetch("/api/open-url", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url }),
       });
       const data = await res.json().catch(() => ({}));
-      toast(data.message || (res.ok ? "Opened in Firefox." : "Could not open Firefox."));
+      toast(data.message || (res.ok ? "Opened in remote Firefox." : "Could not open Firefox."));
     } catch {
       toast("Could not reach the exam console API.");
     }
@@ -161,11 +164,11 @@
       } catch {
         return;
       }
-      if (isDocsUrl(absolute)) {
+      if (isHttpUrl(absolute)) {
         anchor.setAttribute("href", "#");
         anchor.addEventListener("click", (event) => {
           event.preventDefault();
-          openDocs(absolute);
+          openUrl(absolute);
         });
       } else if (/^https?:/i.test(href)) {
         anchor.target = "_blank";
@@ -400,14 +403,9 @@
 
         if (target === "desktop") {
           setTimeout(() => {
-            try {
-              const rfb = getRemoteRfb();
-              if (rfb) {
-                rfb.scaleViewport = true;
-                rfb.focus();
-              }
-            } catch {
-              /* ignore */
+            const frame = getConnectedNoVncFrame();
+            if (frame) {
+              frame.frameDocument.getElementById("noVNC_keyboardinput")?.focus();
             }
           }, 100);
         }

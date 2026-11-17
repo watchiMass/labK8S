@@ -81,20 +81,16 @@ export CKA_VNC_PASSWORD='cka-lab1'       # VNC (8 caractères max)
 - Dans le terminal : `Ctrl+Shift+C` / `Ctrl+Shift+V`.
 - Depuis l'ExamUI : les boutons « Copy to desktop » envoient le texte au
   presse-papier distant ; collez ensuite avec `Ctrl+Shift+V` dans le terminal.
+- Pour du texte copié dans le navigateur de l'hôte, ouvrez le panneau latéral
+  Clipboard de noVNC et collez-le dans sa zone de texte. Quittez la zone (par exemple
+  avec Tab) pour l'envoyer au desktop. Pour récupérer du texte, copiez-le dans le
+  desktop puis copiez-le depuis ce panneau noVNC.
 - En RDP, le presse-papier fonctionne directement entre l'hôte et la session.
 
 ### Firefox
 
-Par défaut, Firefox est limité à `kubernetes.io` (comme à l'examen). Pour
-ouvrir d'autres sites pendant les labs :
-
-```bash
-sudo cka-firefox-mode open       # puis relancer Firefox
-sudo cka-firefox-mode restricted # remettre le mode examen
-```
-
-Les liens Kubernetes d'une question s'ouvrent dans le Firefox du desktop via
-l'ExamUI.
+Firefox utilise ses réglages normaux, sans politique gérée ni filtre de sites.
+Les liens HTTP(S) d'une question s'ouvrent dans le Firefox du desktop via l'ExamUI.
 
 ## Les labs
 
@@ -201,7 +197,6 @@ vagrant ssh cp1 -c 'journalctl -u exam-desktop -u exam-console -n 100 --no-pager
   (logind supprime `/run/user/<uid>` quand une session SSH/RDP se termine).
   Lancez `bash scripts/desktop-diagnostics.sh` et collez la sortie pour
   diagnostic.
-- **Le filtre Firefox gêne les labs** : `sudo cka-firefox-mode open`.
 - **B06/D14 échouent sur le SSH worker** : vérifier
   `ssh node01 'sudo -n true'` depuis le terminal du desktop.
 - **Le `kubeconfig` à la racine est obsolète** après un rebuild ; régénérez-le
@@ -209,5 +204,5 @@ vagrant ssh cp1 -c 'journalctl -u exam-desktop -u exam-console -n 100 --no-pager
   `vagrant ssh cp1 -c 'sudo cat /etc/kubernetes/admin.conf' > kubeconfig`.
 
 L'ExamUI locale est une reproduction d'entraînement, pas l'interface officielle
-de l'examen. Le vrai Remote Desktop utilise un clavier US et Firefox limité aux
-ressources autorisées ; ce lab reproduit ces contraintes autant que possible.
+de l'examen. Le vrai Remote Desktop utilise un clavier US et un navigateur limité
+aux ressources autorisées ; ce lab privilégie un Firefox librement utilisable.

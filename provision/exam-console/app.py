@@ -2,7 +2,7 @@
 """Local CKA ExamUI: question panel + timer + embedded noVNC remote desktop.
 
 Serves the exam console on :8080, the noVNC JS from vendor/novnc, and a small
-API used by the frontend. It only launches Firefox for kubernetes.io docs.
+API used by the frontend.
 """
 
 from __future__ import annotations
@@ -104,20 +104,17 @@ def question_payload(labs_dir: Path, series: str, slug: str) -> dict | None:
     }
 
 
-def is_allowed_docs_url(url: str) -> bool:
+def is_http_url(url: str) -> bool:
     try:
         parsed = urlparse(url)
     except ValueError:
         return False
-    if parsed.scheme not in ("http", "https"):
-        return False
-    host = (parsed.hostname or "").lower()
-    return host == "kubernetes.io" or host.endswith(".kubernetes.io")
+    return parsed.scheme in ("http", "https") and bool(parsed.hostname)
 
 
 def open_in_firefox(url: str) -> tuple[bool, str]:
-    if not is_allowed_docs_url(url):
-        return False, "Only kubernetes.io documentation can be opened in the exam Firefox."
+    if not is_http_url(url):
+        return False, "Only valid HTTP(S) URLs can be opened in Firefox."
     env = os.environ.copy()
     env.setdefault("DISPLAY", ":1")
     try:
@@ -183,7 +180,7 @@ class ExamUIHandler(BaseHTTPRequestHandler):
             self.send_json({"vncPassword": self.vnc_password, "wsPort": self.ws_port})
             return
 
-        if path == "/api/open-docs":
+        if path == "/api/open-url":
             url = query.get("url", [""])[0]
             ok, message = open_in_firefox(url)
             self.send_json({"ok": ok, "message": message}, 200 if ok else 400)
@@ -193,7 +190,7 @@ class ExamUIHandler(BaseHTTPRequestHandler):
 
     def do_POST(self) -> None:  # noqa: N802 - stdlib signature
         parsed = urlparse(self.path)
-        if parsed.path != "/api/open-docs":
+        if parsed.path != "/api/open-url":
             self.send_json({"error": "not found"}, 404)
             return
 

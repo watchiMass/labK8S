@@ -18,7 +18,6 @@ PANEL="${XFCE}/panel"
 # --- Scripts utilitaires ---
 install -m 0755 "${ASSETS}/cka-theme.sh" /usr/local/bin/cka-theme.sh
 install -m 0755 "${ASSETS}/cka-keyboard.sh" /usr/local/bin/cka-keyboard.sh
-install -m 0755 "${ASSETS}/cka-firefox-mode.sh" /usr/local/bin/cka-firefox-mode.sh
 install -m 0755 "${ASSETS}/cka-codium.sh" /usr/local/bin/cka-codium
 
 # --- Wallpaper ---
@@ -73,14 +72,11 @@ EOF
 chmod 0755 "${CAND}/.xsession"
 chown candidate:candidate "${CAND}/.xsession"
 
-# --- Politiques Firefox ---
-install -d -m 0755 /etc/firefox/policies /usr/local/share/cka
-install -m 0644 "${ASSETS}/firefox/policies-restricted.json" \
-  /usr/local/share/cka/firefox-policies-restricted.json
-install -m 0644 "${ASSETS}/firefox/policies-open.json" \
+# Retirer les anciennes politiques gérées : Firefox utilise ses réglages normaux.
+rm -f /etc/firefox/policies/policies.json \
+  /usr/local/bin/cka-firefox-mode.sh \
+  /usr/local/share/cka/firefox-policies-restricted.json \
   /usr/local/share/cka/firefox-policies-open.json
-install -m 0644 /usr/local/share/cka/firefox-policies-restricted.json \
-  /etc/firefox/policies/policies.json
 
 # --- Services du desktop d'examen ---
 CANDIDATE_UID="$(id -u candidate)"

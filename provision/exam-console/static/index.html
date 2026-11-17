@@ -77,14 +77,15 @@
               <code>cka-keyboard us</code>. Use <code>cka-keyboard fr</code> to switch back.</p>
 
             <h3>Copy and paste</h3>
-            <p>Select a command or use a “Copy to desktop” button, then paste in the
-              remote terminal with <code>Ctrl+Shift+V</code>. Inside the terminal,
-              <code>Ctrl+Shift+C</code> copies.</p>
+            <p>Use a “Copy to desktop” button for task commands. For text copied in your
+              local browser, open the noVNC sidebar’s Clipboard panel and paste the text in
+              its box. Leave the box (for example, press Tab) to send it to the remote
+              desktop. In the remote terminal, paste with <code>Ctrl+Shift+V</code>. To
+              copy text back, select it remotely, then copy it from the Clipboard panel.</p>
 
-            <h3>Docs</h3>
-            <p>Firefox is restricted to <code>kubernetes.io</code> by default, as in the exam.
-              Links in a task open in the remote Firefox. To allow other sites, run
-              <code>sudo cka-firefox-mode open</code> in the terminal.</p>
+            <h3>Web browser</h3>
+            <p>Firefox uses its normal settings with no managed site filter. HTTP(S) links
+              in a task open in the remote Firefox.</p>
 
             <h3>Timer</h3>
             <p>The timer is 2 hours. It keeps running if you switch tabs or reload the
