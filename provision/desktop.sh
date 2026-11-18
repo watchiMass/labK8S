@@ -25,7 +25,11 @@ Pin: origin packages.mozilla.org
 Pin-Priority: 1000
 EOF
 apt-get update
-apt-get install -y firefox
+if command -v snap >/dev/null 2>&1 && snap list firefox >/dev/null 2>&1; then
+  snap remove firefox
+fi
+# Ubuntu's transitional Snap package has a higher version epoch than Mozilla's deb.
+apt-get install -y --allow-downgrades firefox
 
 # --- VSCodium ---
 curl -fsSL https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg \

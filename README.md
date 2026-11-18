@@ -90,7 +90,8 @@ export CKA_VNC_PASSWORD='cka-lab1'       # VNC (8 caractères max)
 ### Firefox
 
 Firefox utilise ses réglages normaux, sans politique gérée ni filtre de sites.
-Les liens HTTP(S) d'une question s'ouvrent dans le Firefox du desktop via l'ExamUI.
+Lance-le avec son icône dans le dock du desktop, ou depuis son terminal avec
+`firefox`. Les liens HTTP(S) d'une question s'ouvrent dans ce Firefox via l'ExamUI.
 
 ## Les labs
 
@@ -109,11 +110,22 @@ bash cleanup.sh
 
 L'ExamUI affiche la question et un encart « Lab helper » avec ces commandes.
 
-Pour modifier les labs sur l'hôte et les injecter dans la VM :
+Le dépôt GitHub est cloné sur l'hôte; la copie `~/cka-practice-labs` dans la VM
+est un miroir sans métadonnées Git. Pour récupérer les changements poussés sur
+GitHub puis mettre à jour le desktop :
 
 ```bash
-bash scripts/sync-labs.sh          # met à jour sans supprimer votre travail
-bash scripts/sync-labs.sh --prune  # miroir exact (supprime les fichiers en trop)
+git pull --ff-only                 # depuis la racine du dépôt sur l'hôte
+bash scripts/sync-labs.sh          # envoie les labs à la VM sans supprimer les fichiers en trop
+```
+
+Les fichiers modifiés dans le dépôt local doivent être commités ou mis de côté
+avant le `git pull`. La synchronisation met à jour les fichiers homonymes dans la
+VM; termine ou sauvegarde ton travail dans un exercice avant de la lancer.
+Pour forcer un miroir exact (supprime les fichiers en trop dans la VM) :
+
+```bash
+bash scripts/sync-labs.sh --prune
 ```
 
 ## SSH et nœuds

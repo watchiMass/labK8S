@@ -63,7 +63,8 @@ fi
 dns_ok() {
   local deployment="$1"
   timeout 12 kubectl -n "$NS" exec "deploy/$deployment" -- \
-    nslookup kubernetes.default 2>/dev/null | grep -qi 'Name:'
+    nslookup "kubernetes.default.svc.$(cluster_domain "$NS" "deploy/$deployment")." \
+      2>/dev/null | grep -qi 'Name:'
 }
 if dns_ok client; then
   pass "client can resolve kubernetes.default"
