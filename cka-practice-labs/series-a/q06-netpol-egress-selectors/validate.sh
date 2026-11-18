@@ -26,11 +26,11 @@ ing_pod=$(kubectl -n a6-back get networkpolicy api-ingress \
 check_eq "api ingress selects app=front" "$ing_pod" "front"
 
 eg_ns=$(kubectl -n a6-front get networkpolicy front-egress \
-  -o jsonpath='{range .spec.egress[*].to[*].namespaceSelector.matchLabels}{.}{"\n"}{end}' 2>/dev/null || true)
+  -o jsonpath='{range .spec.egress[*].to[*]}{.namespaceSelector.matchLabels.kubernetes\.io/metadata\.name}{"\n"}{end}' 2>/dev/null || true)
 check_contains "front egress targets namespace a6-back" "$eg_ns" "a6-back"
 
 eg_pod=$(kubectl -n a6-front get networkpolicy front-egress \
-  -o jsonpath='{range .spec.egress[*].to[*].podSelector.matchLabels}{.}{"\n"}{end}' 2>/dev/null || true)
+  -o jsonpath='{range .spec.egress[*].to[*]}{.podSelector.matchLabels.app}{"\n"}{end}' 2>/dev/null || true)
 check_contains "front egress targets app=api" "$eg_pod" "api"
 
 http_ok() { # ns deploy url
@@ -62,7 +62,9 @@ else
   fail "tester cannot reach db (policy applies too broadly)"
 fi
 
-if timeout 12 kubectl -n a6-front exec deploy/front -- nslookup kubernetes.default 2>/dev/null | grep -qi 'Name:'; then
+if timeout 12 kubectl -n a6-front exec deploy/front -- \
+    nslookup "kubernetes.default.svc.$(cluster_domain a6-front deploy/front)." \
+    2>/dev/null | grep -qi 'Name:'; then
   pass "front can resolve DNS"
 else
   fail "front cannot resolve DNS (missing DNS egress rule)"

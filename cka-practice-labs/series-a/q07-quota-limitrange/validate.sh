@@ -51,8 +51,9 @@ check_eq "quota-app limit cpu" \
 check_eq "quota-app limit memory" \
   "$(kubectl -n "$NS" get deployment quota-app -o jsonpath='{.spec.template.spec.containers[0].resources.limits.memory}' 2>/dev/null || true)" "256Mi"
 
-ready=$(kubectl -n "$NS" get pods -l app=quota-app -o jsonpath='{.items[*].status.conditions[?(@.type=="Ready")].status}' 2>/dev/null || true)
-count=$(grep -o 'True' <<<"$ready" | wc -l | tr -d ' ')
+count=$(kubectl -n "$NS" get deployment quota-app \
+  -o jsonpath='{.status.readyReplicas}' 2>/dev/null || true)
+count="${count:-0}"
 check_eq "both quota-app Pods are Ready" "$count" "2"
 
 if kubectl apply --dry-run=server -f - >/dev/null 2>&1 <<'YAML'
